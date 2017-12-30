@@ -12,7 +12,9 @@ def one_point_cross(ind1, ind2):
     ind2.genotype = res2
 
 
-def order_cross(ind1, ind2):
+def order_cross(in1, in2):
+    ind1 = in1.genotype
+    ind2 = in2.genotype
     size = min(len(ind1), len(ind2))
     a, b = random.sample(xrange(size), 2)
     if a > b:
@@ -42,6 +44,5 @@ def order_cross(ind1, ind2):
 
 
 if __name__ == "__main__":
-    a = [[1, 5], [2], [555, 22 ,2 ,2], [1, 0]]
-    b = [[1, 2], [2, 2], [555, 22, 2, 2], [1, 0]]
-    print order_cross(a, b)
+
+    print order_cross(range(10), list(reversed(range(10))))

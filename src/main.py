@@ -1,11 +1,15 @@
+from src.genetic.fit_function import fit_function
 from src.genetic.Population import Population
 import numpy as np
 import sys
 
 from src.genetic.cross_functions import order_cross
 from src.genetic.decode_functions import Decoder
-from src.solution import fit_function, get_result, get_sizes
 import matplotlib.pyplot as plt
+
+from src.utils.file_functions import get_sizes, save_rect_list_to_file
+from src.utils.plot_solution import plot_solution
+
 
 def run_algorithm(p_cross, p_mut):
 
@@ -22,7 +26,8 @@ def run_algorithm(p_cross, p_mut):
     pop = Population(pop_size, p_cross, p_mut,
                      genotype_size, decode_fun, fit_fun, cross_fun, plot=True)
 
-    for i in range(1000):
+    for i in range(300):
+        print i
         pop.calculate_fitness()
         pop.create_new_population()
         pop.crossing()
@@ -33,11 +38,20 @@ def run_algorithm(p_cross, p_mut):
     plt.plot(avg)
     plt.show()
     print pop.best.genotype
+    return pop.best.genotype
 
 def main():
 
-    run_algorithm(0.01, 0.3)
+    order = run_algorithm(p_cross=0.5, p_mut=0.1)
+    sizes = get_sizes()
+
+    decoder = Decoder(sizes)
+
+    rect_list = decoder(order)
+    save_rect_list_to_file(rect_list, order, sizes)
+
 
 
 if __name__ == "__main__":
     main()
+    plot_solution()

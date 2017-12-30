@@ -37,11 +37,8 @@ def plot_rectangles(rectangles, x=2800, y=2070):
     fig2.savefig('rect2.png', dpi=250, bbox_inches='tight')
 
 
-def plot():
+def plot_solution():
     data = get_data()
     rects = data_to_rectangles(data)
     plot_rectangles(rects)
 
-
-if __name__ == "__main__":
-    plot()

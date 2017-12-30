@@ -1,4 +1,4 @@
-from src.solution import Rectangle, update_points_list, create_rectangle, outside_big_rect, colidate
+from src.utils.Rectangle import Rectangle, create_rectangle, outside_big_rect, collide
 
 
 class Decoder:
@@ -26,7 +26,7 @@ class Decoder:
                     collision = collision or outside_big_rect(new_rectangle)
                     for rect in rectangles:
                         if not collision and rect:
-                            collision = collision or colidate(rect, new_rectangle)
+                            collision = collision or collide(rect, new_rectangle)
                     if not collision:
                         rectangles.append(new_rectangle)
                         points_list = update_points_list(points_list, new_rectangle)
@@ -34,3 +34,10 @@ class Decoder:
             if not added:
                 rectangles.append(0)
         return rectangles
+
+
+def update_points_list(points_list, rectangle):
+    points_list[0].append((rectangle.xmax, rectangle.ymin))
+    points_list[1].append((rectangle.xmin, rectangle.ymax))
+    points_list[2].append((rectangle.xmax, rectangle.ymax))
+    return points_list
