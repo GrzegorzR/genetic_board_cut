@@ -17,6 +17,8 @@ class Population:
         self.avg = []
         self.bests = []
         self.plot = plot
+        self.best = None
+
 
     def calculate_fitness(self):
         for ind in self.population:
@@ -43,6 +45,7 @@ class Population:
             self.best_val = best_ind
             best_index = np.where(fit_array == best_ind)[0][0]
             self.best_x = self.population[best_index].get_x()
+            self.best = deepcopy(self.population[int(best_index)])
 
         self.bests.append(self.best_val)
         self.avg.append(sum(fit_array) / len(fit_array))

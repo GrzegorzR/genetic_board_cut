@@ -12,8 +12,8 @@ class Individual:
         self.fit_val = None
 
     def mutate(self):
-        i = random.randint(0, self.genotype_size)
-        j = random.randint(0, self.genotype_size)
+        i = random.randint(0, self.genotype_size - 1)
+        j = random.randint(0, self.genotype_size - 1)
         self.genotype[i], self.genotype[j] = self.genotype[j], self.genotype[i]
 
     def calculate_fitness(self):

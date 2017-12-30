@@ -1,17 +1,36 @@
+from src.solution import Rectangle, update_points_list, create_rectangle, outside_big_rect, colidate
 
-const_step = 3./pow(2.,22)
 
-def binary(genotype):
-    number = float(int(''.join([str(i) for i in genotype]), 2))
-    return -1. + number*const_step
+class Decoder:
+    def __init__(self, rect_sizes):
+        self.rect_sizes = rect_sizes
 
-def xor(a, b):
-    return str(int(bool(a) != bool(b)))
+    def __call__(self, *args, **kwargs):
+        return self.get_result(args[0])
 
-def gray(genotype):
-    genotype = ''.join([str(i) for i in genotype])
-    result = genotype[0]
-    for i in range(1, len(genotype)):
-        result += xor (int(result[-1]), int(genotype[i]))
-    number = float(int(result, 2))
-    return -1. + number * const_step
+    def get_result(self, rect_order):
+        rect_sizes = self.rect_sizes
+        rectangles = []
+        points_list = [[], [], []]
+        rectangles.append(Rectangle(0., 0., 0. + rect_sizes[rect_order[0]][0],
+                                    0. + rect_sizes[rect_order[0]][1]))
+
+        points_list = update_points_list(points_list, rectangles[0])
+
+        for i in rect_order[1:]:
+            added = False
+            for point in points_list[0] + points_list[1] + points_list[2]:
+                if not added:
+                    new_rectangle = create_rectangle(point, rect_sizes[i])
+                    collision = False
+                    collision = collision or outside_big_rect(new_rectangle)
+                    for rect in rectangles:
+                        if not collision and rect:
+                            collision = collision or colidate(rect, new_rectangle)
+                    if not collision:
+                        rectangles.append(new_rectangle)
+                        points_list = update_points_list(points_list, new_rectangle)
+                        added = True
+            if not added:
+                rectangles.append(0)
+        return rectangles

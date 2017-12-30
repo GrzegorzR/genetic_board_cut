@@ -94,7 +94,7 @@ def total_area(rect_list):
     return result
 
 def fit_function(rect_list):
-    return 1./float(total_area(rect_list))
+    return float(total_area(rect_list))
 
 def save_rect_list_to_file(rect_list, order, sizes):
     size = fit_function(rect_list)
@@ -109,7 +109,8 @@ def main():
     sizes = get_sizes()
     # order = list(reversed(range(0,12)))
     # order = range(0, 12)
-    order = np.random.permutation(12)
+    order = [ 7,  3 , 8,  1,  2, 10, 11 , 0 , 6,  5,  9 , 4]
+
     rect_list = get_result(sizes, order)
     save_rect_list_to_file(rect_list, order, sizes)
 

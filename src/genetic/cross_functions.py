@@ -42,4 +42,6 @@ def order_cross(ind1, ind2):
 
 
 if __name__ == "__main__":
-    print order_cross(range(10), list(reversed(range(10))))
+    a = [[1, 5], [2], [555, 22 ,2 ,2], [1, 0]]
+    b = [[1, 2], [2, 2], [555, 22, 2, 2], [1, 0]]
+    print order_cross(a, b)
