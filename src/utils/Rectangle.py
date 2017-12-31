@@ -5,11 +5,16 @@ from src.utils.consts import *
 Rectangle = namedtuple('Rectangle', 'xmin ymin xmax ymax')
 
 
-def create_rectangle(point, size):
+def create_rectangle(point, size, rotation):
+    if not rotation:
+        w, h = size[0], size[1]
+    else:
+        w, h = size[1], size[0]
+
     return Rectangle(point[0],
                      point[1],
-                     point[0] + size[0],
-                     point[1] + size[1])
+                     point[0] + w,
+                     point[1] + h)
 
 
 def collide(a, b):

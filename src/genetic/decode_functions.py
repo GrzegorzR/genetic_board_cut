@@ -1,4 +1,8 @@
+import random
+import numpy as np
 from src.utils.Rectangle import Rectangle, create_rectangle, outside_big_rect, collide
+from src.utils.file_functions import get_sizes, save_rect_list_to_file
+from src.utils.plot_solution import plot_solution
 
 
 class Decoder:
@@ -6,9 +10,9 @@ class Decoder:
         self.rect_sizes = rect_sizes
 
     def __call__(self, *args, **kwargs):
-        return self.get_result(args[0])
+        return self.get_result(args[0], args[1])
 
-    def get_result(self, rect_order):
+    def get_result(self, rect_order, rect_rotation):
         rect_sizes = self.rect_sizes
         rectangles = []
         points_list = [[], [], []]
@@ -21,7 +25,7 @@ class Decoder:
             added = False
             for point in points_list[0] + points_list[1] + points_list[2]:
                 if not added:
-                    new_rectangle = create_rectangle(point, rect_sizes[i])
+                    new_rectangle = create_rectangle(point, rect_sizes[i], rect_rotation[i])
                     collision = False
                     collision = collision or outside_big_rect(new_rectangle)
                     for rect in rectangles:
@@ -41,3 +45,16 @@ def update_points_list(points_list, rectangle):
     points_list[1].append((rectangle.xmin, rectangle.ymax))
     points_list[2].append((rectangle.xmax, rectangle.ymax))
     return points_list
+
+if __name__ == "__main__":
+    sizes = get_sizes()
+    n = len(sizes)
+    order = np.random.permutation(n)
+    rotations = [int(random.choice([True, False])) for _ in range(n)]
+
+    decoder = Decoder(sizes)
+
+    rect_list = decoder(order, rotations)
+    save_rect_list_to_file(rect_list, order, sizes)
+
+    plot_solution()

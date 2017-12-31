@@ -37,17 +37,17 @@ def run_algorithm(p_cross, p_mut):
     plt.plot(bests)
     plt.plot(avg)
     plt.show()
-    print pop.best.genotype
-    return pop.best.genotype
+    print pop.best.genotype, pop.best.rotations
+    return pop.best.genotype, pop.best.rotations
 
 def main():
 
-    order = run_algorithm(p_cross=0.5, p_mut=0.1)
+    order, rotations = run_algorithm(p_cross=0.5, p_mut=0.1)
     sizes = get_sizes()
 
     decoder = Decoder(sizes)
 
-    rect_list = decoder(order)
+    rect_list = decoder(order, rotations)
     save_rect_list_to_file(rect_list, order, sizes)
 
 

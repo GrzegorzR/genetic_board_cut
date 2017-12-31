@@ -57,7 +57,7 @@ class Population:
         new_range = 1
         positive = np.array([float((n - old_min) / old_range * new_range + new_min) for n in fit_array])
         normalized = [float(i) / sum(positive) for i in positive]
-        a = sum(normalized)
+        #a = sum(normalized)
         new_pop_nums = [np.random.choice(range(self.pop_size), p=normalized) for i in range(self.pop_size)]
         new_pop = [deepcopy(self.population[i]) for i in new_pop_nums]
         self.population = new_pop

@@ -3,8 +3,8 @@ import random
 
 
 def one_point_cross(ind1, ind2):
-    genotype1 = ind1.genotype
-    genotype2 = ind2.genotype
+    genotype1 = ind1.rotations
+    genotype2 = ind2.rotations
     cross_point = randint(1, len(genotype1) - 1)
     res1 = genotype1[0:cross_point] + genotype2[cross_point:]
     res2 = genotype2[0:cross_point] + genotype1[cross_point:]
@@ -42,7 +42,14 @@ def order_cross(in1, in2):
 
     return ind1, ind2
 
+def full_cross(ind1, ind2):
+    order_cross(ind1, ind2)
+    one_point_cross(ind1, ind2)
+
+
 
 if __name__ == "__main__":
-
-    print order_cross(range(10), list(reversed(range(10))))
+    a = range(10)
+    b = list(reversed(range(10)))
+    order_cross(a, b)
+    print a, b

@@ -1,4 +1,3 @@
-from src.genetic.decode_functions import Decoder
 from src.genetic.fit_function import fit_function
 
 

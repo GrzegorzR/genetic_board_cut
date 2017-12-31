@@ -5,6 +5,7 @@ class Individual:
 
     def __init__(self, genotype_size, decode_fun, fit_fun, p_mut):
         self.genotype = np.random.permutation(genotype_size)
+        self.rotations = [int(random.choice([True, False])) for _ in range(genotype_size)]
         self.genotype_size = genotype_size
         self.decoder = decode_fun
         self.fit_fun = fit_fun
@@ -18,7 +19,7 @@ class Individual:
             self.genotype[i], self.genotype[j] = self.genotype[j], self.genotype[i]
 
     def calculate_fitness(self):
-        self.fit_val = self.fit_fun(self.decoder(self.genotype))
+        self.fit_val = self.fit_fun(self.decoder(self.genotype, self.rotations))
 
     def get_x(self):
-        return self.decoder(self.genotype)
+        return self.decoder(self.genotype, self.rotations)
