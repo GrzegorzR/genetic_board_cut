@@ -11,25 +11,25 @@ def get_sizes(sizes_file='../maleplyty.txt'):
     return data
 
 
-def rect_to_line(rect, size):
+def rect_to_line(rect, size, rotation):
     if rect:
-        return '{} {} {} {} {}\n'.format(int(rect.xmax - rect.xmin),
-                                         int(rect.ymax - rect.ymin),
+        return '{} {} {} {} {}\n'.format(int(int(size[0])),
+                                         int(int(size[1])),
                                          int(rect.xmin),
                                          int(rect.ymin),
-                                         0)
+                                         rotation)
     else:
-        return '{} {} {} {} {}\n'.format(int(size[0]), int(size[1]), -1, -1, 0)
+        return '{} {} {} {} {}\n'.format(int(size[0]), int(size[1]), -1, -1, rotation)
 
 
-def save_rect_list_to_file(rect_list, order, sizes, output_file='../out.txt'):
+def save_rect_list_to_file(rect_list, order, sizes, rotations, output_file='../out.txt'):
     size = fit_function(rect_list)
     print size
     order = list(order)
     with open(output_file, 'w') as f:
         f.write(str(size) + '\n')
         for i in range(len(order)):
-            f.write(rect_to_line(rect_list[order.index(i)], sizes[i]))
+            f.write(rect_to_line(rect_list[order.index(i)], sizes[i], rotations[i]))
 
 
 

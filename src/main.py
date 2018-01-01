@@ -42,13 +42,13 @@ def run_algorithm(p_cross, p_mut):
 
 def main():
 
-    order, rotations = run_algorithm(p_cross=0.5, p_mut=0.1)
+    order, rotations = run_algorithm(p_cross=0.4, p_mut=0.05)
     sizes = get_sizes()
 
     decoder = Decoder(sizes)
 
     rect_list = decoder(order, rotations)
-    save_rect_list_to_file(rect_list, order, sizes)
+    save_rect_list_to_file(rect_list, order, sizes, rotations)
 
 
 

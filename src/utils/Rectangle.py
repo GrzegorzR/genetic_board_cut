@@ -20,11 +20,7 @@ def create_rectangle(point, size, rotation):
 def collide(a, b):
     dx = min(a.xmax, b.xmax) - max(a.xmin, b.xmin)
     dy = min(a.ymax, b.ymax) - max(a.ymin, b.ymin)
-    if (dx > 0) and (dy > 0):
-        return True
-    else:
-        return False
-
+    return (dx > 0) and (dy > 0)
 
 def outside_big_rect(new_rectangle):
     return new_rectangle.xmax > XMAX or new_rectangle.ymax > YMAX

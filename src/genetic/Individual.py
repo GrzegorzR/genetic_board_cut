@@ -17,6 +17,9 @@ class Individual:
             i = random.randint(0, self.genotype_size - 1)
             j = random.randint(0, self.genotype_size - 1)
             self.genotype[i], self.genotype[j] = self.genotype[j], self.genotype[i]
+        for i in range(self.genotype_size):
+            if self.p_mut > random.random():
+                self.rotations[i] = int(not bool(self.rotations[i]))
 
     def calculate_fitness(self):
         self.fit_val = self.fit_fun(self.decoder(self.genotype, self.rotations))

@@ -15,13 +15,9 @@ class Decoder:
     def get_result(self, rect_order, rect_rotation):
         rect_sizes = self.rect_sizes
         rectangles = []
-        points_list = [[], [], []]
-        rectangles.append(Rectangle(0., 0., 0. + rect_sizes[rect_order[0]][0],
-                                    0. + rect_sizes[rect_order[0]][1]))
+        points_list = [[(0, 0)], [], []]
 
-        points_list = update_points_list(points_list, rectangles[0])
-
-        for i in rect_order[1:]:
+        for i in rect_order:
             added = False
             for point in points_list[0] + points_list[1] + points_list[2]:
                 if not added:
@@ -35,6 +31,8 @@ class Decoder:
                         rectangles.append(new_rectangle)
                         points_list = update_points_list(points_list, new_rectangle)
                         added = True
+                        for point_list in points_list:
+                            if point in point_list: point_list.remove(point)
             if not added:
                 rectangles.append(0)
         return rectangles
@@ -55,6 +53,6 @@ if __name__ == "__main__":
     decoder = Decoder(sizes)
 
     rect_list = decoder(order, rotations)
-    save_rect_list_to_file(rect_list, order, sizes)
+    save_rect_list_to_file(rect_list, order, sizes, rotations)
 
     plot_solution()
