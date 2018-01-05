@@ -34,7 +34,9 @@ def plot_rectangles(rectangles, x=2800, y=2070):
     ax2.invert_yaxis()
     for rect in rectangles:
         ax2.add_patch(rect)
-    fig2.savefig('rect2.png', dpi=250, bbox_inches='tight')
+    import time
+    timestamp = int(time.time())
+    fig2.savefig('{}.png'.format(str(timestamp)), dpi=250, bbox_inches='tight')
 
 
 def plot_solution():

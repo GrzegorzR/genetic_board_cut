@@ -27,9 +27,13 @@ def save_rect_list_to_file(rect_list, order, sizes, rotations, output_file='../o
     print size
     order = list(order)
     with open(output_file, 'w') as f:
-        f.write(str(size) + '\n')
+        f.write(str(int(size)) + '\n')
         for i in range(len(order)):
             f.write(rect_to_line(rect_list[order.index(i)], sizes[i], rotations[i]))
 
 
+def save_rect_sizes_to_file(sizes, output_file):
+    with open(output_file, 'w') as f:
+        for size in sizes:
+            f.write("{} {}\n".format(size[0], size[1]))
 
