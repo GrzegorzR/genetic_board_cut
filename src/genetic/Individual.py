@@ -13,7 +13,7 @@ class Individual:
         self.fit_val = None
 
     def mutate(self):
-        if self.p_mut > random.random():
+        if self.p_mut*10 > random.random():
             i = random.randint(0, self.genotype_size - 1)
             j = random.randint(0, self.genotype_size - 1)
             self.genotype[i], self.genotype[j] = self.genotype[j], self.genotype[i]

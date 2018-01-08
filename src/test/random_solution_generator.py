@@ -11,12 +11,12 @@ import time
 def generate_random_sizes_list():
     length = randint(30, 40)
     result = []
-    up =  randint(1, 2000)
-    down = randint(1, 2000)
+    up =  randint(1500, 2000)
+    down = randint(10, 30)
     if up < down:
         up, down = down, up
     for i in range(length):
-        result.append((randint(down, up),randint(down, up)) )
+        result.append((randint(30, 50),randint(2000, 2500)) )
     return  result
 
 
@@ -34,10 +34,11 @@ def main():
     output_filepath = "../output/{}.txt".format(case_id)
     save_rect_sizes_to_file(sizes, sizes_filepath)
     save_rect_list_to_file(rect_list, order, sizes, rotations, output_filepath)
+    return output_filepath
 
 
 
 if __name__ == "__main__":
     for i in range(200):
-        resmain()
-        plot_solution()
+        out_path = main()
+        plot_solution(out_path)

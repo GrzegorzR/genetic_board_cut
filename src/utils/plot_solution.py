@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 
-def get_data(output_path="../out.txt"):
+def get_data(output_path):
     with open(output_path) as f:
         data = f.readlines()
     data = [i.split(' ') for i in data]
@@ -17,7 +17,7 @@ def data_to_rectangles(data):
     rectangles = []
     for rect in data:
         x, y = rect[2], rect[3]
-        if  not rect[-1]:
+        if not rect[-1]:
             w, h = rect[0], rect[1]
         else:
             w, h = rect[1], rect[0]
@@ -36,11 +36,10 @@ def plot_rectangles(rectangles, x=2800, y=2070):
         ax2.add_patch(rect)
     import time
     timestamp = int(time.time())
-    fig2.savefig('{}.png'.format(str(timestamp)), dpi=250, bbox_inches='tight')
+    fig2.savefig('../output/img/{}.png'.format(str(timestamp)), dpi=250, bbox_inches='tight')
 
 
-def plot_solution():
-    data = get_data()
+def plot_solution(out_path="../out.txt"):
+    data = get_data(out_path)
     rects = data_to_rectangles(data)
     plot_rectangles(rects)
-
